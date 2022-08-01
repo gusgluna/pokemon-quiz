@@ -19,6 +19,10 @@ type PokemonContext = {
   setGameState: (value: string) => void;
   currentPokemon: PokemonInfo;
   setCurrentPokemon: (value: PokemonInfo) => void;
+  score: number;
+  setScore: (value: number) => void;
+  lives: number;
+  setLives: (value: number) => void;
 };
 
 /*Create Context*/
@@ -37,6 +41,8 @@ export function PokemonContextProvider({ children }: ProviderProps) {
     abilities: ["overgrow", "chlorophyll"],
     sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
   });
+  const [score, setScore] = useState<number>(0);
+  const [lives, setLives] = useState<number>(3);
 
 
 
@@ -45,7 +51,11 @@ export function PokemonContextProvider({ children }: ProviderProps) {
       gameState,
       setGameState,
       currentPokemon,
-      setCurrentPokemon
+      setCurrentPokemon,
+      score,
+      setScore,
+      lives,
+      setLives
     }}>
       {children}
     </PokemonContext.Provider>

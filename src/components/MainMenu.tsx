@@ -20,7 +20,7 @@ export const MainMenu = () => {
         variant="h4"
         sx={{ fontFamily: "Work Sans" }}
         mt={2}
-        color="#FFCC00"
+        color="white"
         fontWeight={"bolder"}
         align='center'
       >
@@ -53,6 +53,7 @@ export const MainMenu = () => {
       >
         Start
       </Button>
+
 
 
     </ScreenContainer>
