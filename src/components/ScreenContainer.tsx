@@ -17,7 +17,8 @@ const ScreenContainer = ({ children }: Props) => {
         height: "600px",
         borderRadius: "20px",
         padding: "1rem",
-        color: "white"
+        color: "white",
+        overflow: "hidden"
       }}
     >
       {children}

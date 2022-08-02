@@ -23,6 +23,10 @@ type PokemonContext = {
   setScore: (value: number) => void;
   lives: number;
   setLives: (value: number) => void;
+  revealAnswer: boolean;
+  setRevealAnswer: (value: boolean) => void;
+  gameMode: string;
+  setGameMode: (value: string) => void;
 };
 
 /*Create Context*/
@@ -43,6 +47,8 @@ export function PokemonContextProvider({ children }: ProviderProps) {
   });
   const [score, setScore] = useState<number>(0);
   const [lives, setLives] = useState<number>(3);
+  const [revealAnswer, setRevealAnswer] = useState(false);
+  const [gameMode, setGameMode] = useState("quick");
 
 
 
@@ -55,7 +61,11 @@ export function PokemonContextProvider({ children }: ProviderProps) {
       score,
       setScore,
       lives,
-      setLives
+      setLives,
+      revealAnswer,
+      setRevealAnswer,
+      gameMode,
+      setGameMode
     }}>
       {children}
     </PokemonContext.Provider>

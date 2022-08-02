@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { usePokemonContext } from "../context/PokemonContext";
 
 export const EndScreen = () => {
-  const { score, setGameState, setLives, setScore } = usePokemonContext();
+  const { score, setGameState, setLives, setScore, setGameMode } = usePokemonContext();
   return (
     <ScreenContainer>
       Game Over!
@@ -19,6 +19,7 @@ export const EndScreen = () => {
           setLives(3);
           setScore(0);
           setGameState("menu");
+          setGameMode("quick");
         }
         }
       >
