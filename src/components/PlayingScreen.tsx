@@ -1,38 +1,55 @@
-import { useState } from "react";
-import ScreenContainer from "./ScreenContainer";
-import { Typography, Box, Button } from '@mui/material';
+import React from "react";
+import { Typography, Box } from '@mui/material';
 import { usePokemonContext } from "../context/PokemonContext";
-import { generateRandomNum as rand } from "../utilities/generateRandomNum";
-import { PokemonsFirstGeneration as names } from "../data/PokemonsFirstGeneration";
 import { WhosThatPokemon } from "./WhosThatPokemon";
+import Full from "../assets/full-pixel-heart.png";
+import Empty from "../assets/empty-pixel-heart.png";
 
 export const PlayingScreen = () => {
-  const { currentPokemon, score, lives } = usePokemonContext();
+  const { score, lives } = usePokemonContext();
 
   return (
-    <ScreenContainer>
-      <WhosThatPokemon />
+    <React.Fragment>
 
+      <WhosThatPokemon />
 
       <Typography
         sx={{ fontFamily: "Work Sans" }}
+        variant={"h5"}
         mt={2}
-        color="white"
+        color="primary"
         align='center'
       >
         Score: {score}
       </Typography>
-      <Typography
-        sx={{ fontFamily: "Work Sans" }}
-        color="white"
-        align='center'
-      >
-        Lives: {lives}
-      </Typography>
 
+      <Box sx={{ margin: "1rem" }}>
 
-
-
-    </ScreenContainer>
+        {(lives == 3) && <>
+          <img className="sprite" src={Full} />
+          <img className="sprite" src={Full} />
+          <img className="sprite" src={Full} />
+        </>
+        }
+        {(lives == 2) && <>
+          <img className="sprite" src={Full} />
+          <img className="sprite" src={Full} />
+          <img className="sprite" src={Empty} />
+        </>
+        }
+        {(lives == 1) && <>
+          <img className="sprite" src={Full} />
+          <img className="sprite" src={Empty} />
+          <img className="sprite" src={Empty} />
+        </>
+        }
+        {(lives == 0) && <>
+          <img className="sprite" src={Empty} />
+          <img className="sprite" src={Empty} />
+          <img className="sprite" src={Empty} />
+        </>
+        }
+      </Box>
+    </React.Fragment>
   );
 };

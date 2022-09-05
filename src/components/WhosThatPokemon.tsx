@@ -6,17 +6,11 @@ import { PokemonsFirstGeneration as names } from "../data/PokemonsFirstGeneratio
 import { PokemonsNames as allNames } from "../data/PokemonsNames";
 import { usePokemonContext } from "../context/PokemonContext";
 import "../styles/WhosThatPokemon.css";
+import AnswerButton from "./AnswerButton";
 
-let randOrder1 = rand(0, 4);
-let randOrder2 = rand(0, 4);
-let randOrder3 = rand(0, 4);
-let randOrder4 = rand(0, 4);
-let animateRightAnswer: boolean = false;
-let animateAnswer1: boolean = false;
-let animateAnswer2: boolean = false;
-let animateAnswer3: boolean = false;
 
 export const WhosThatPokemon = () => {
+
   const {
     setCurrentPokemon,
     currentPokemon,
@@ -28,38 +22,9 @@ export const WhosThatPokemon = () => {
     revealAnswer,
     setRevealAnswer,
     gameMode,
+    answersArr,
+    setAnswerArr
   } = usePokemonContext();
-
-  const [ans1, setAns1] = useState("bulbasaur");
-  const [ans2, setAns2] = useState("bulbasaur");
-  const [ans3, setAns3] = useState("bulbasaur");
-
-  async function nextQuiz(answer: string) {
-    let newPokemon = await getNewPokemon((gameMode == "quick") ? rand(1, 151) : rand(1, 897));
-    if (answer.toLocaleLowerCase() != currentPokemon.name.toLocaleLowerCase()) {
-      setLives(lives - 1);
-    }
-    if (answer.toLocaleLowerCase() == currentPokemon.name.toLocaleLowerCase()) {
-      setScore(score + 1);
-    }
-    setRevealAnswer(true);
-    setTimeout(() => {
-      animateRightAnswer = false;
-      animateAnswer1 = false;
-      animateAnswer2 = false;
-      animateAnswer3 = false;
-      setRevealAnswer(false);
-    }, 900);
-
-    setTimeout(() => {
-      randOrder1 = rand(0, 4);
-      randOrder2 = rand(0, 4);
-      randOrder3 = rand(0, 4);
-      randOrder4 = rand(0, 4);
-      setCurrentPokemon(newPokemon);
-    }, 1000);
-
-  }
 
   useEffect(() => {
     if (lives == 0) {
@@ -70,19 +35,45 @@ export const WhosThatPokemon = () => {
   }, [lives]);
 
   useEffect(() => {
-    setAns1((gameMode == "quick") ? names[rand(0, 150)] : allNames[rand(0, 896)]);
-    setAns2((gameMode == "quick") ? names[rand(0, 150)] : allNames[rand(0, 896)]);
-    setAns3((gameMode == "quick") ? names[rand(0, 150)] : allNames[rand(0, 896)]);
-  }, []);
-
-  useEffect(() => {
-    if (revealAnswer == false) {
-      setAns1((gameMode == "quick") ? names[rand(0, 150)] : allNames[rand(0, 896)]);
-      setAns2((gameMode == "quick") ? names[rand(0, 150)] : allNames[rand(0, 896)]);
-      setAns3((gameMode == "quick") ? names[rand(0, 150)] : allNames[rand(0, 896)]);
+    if (gameMode == "quick") {
+      setAnswerArr([
+        {
+          answer: currentPokemon.name,
+          order: rand(0, 10)
+        },
+        {
+          answer: names[rand(0, 150)],
+          order: rand(0, 10)
+        },
+        {
+          answer: names[rand(0, 150)],
+          order: rand(0, 10)
+        },
+        {
+          answer: names[rand(0, 150)],
+          order: rand(0, 10)
+        }]);
     }
-  }, [revealAnswer]);
-
+    if (gameMode == "advanced") {
+      setAnswerArr([
+        {
+          answer: currentPokemon.name,
+          order: rand(0, 10)
+        },
+        {
+          answer: allNames[rand(0, 896)],
+          order: rand(0, 10)
+        },
+        {
+          answer: allNames[rand(0, 896)],
+          order: rand(0, 10)
+        },
+        {
+          answer: allNames[rand(0, 896)],
+          order: rand(0, 10)
+        }]);
+    }
+  }, [currentPokemon]);
 
   return (
     <>
@@ -91,7 +82,7 @@ export const WhosThatPokemon = () => {
         variant="h4"
         sx={{ fontFamily: "Work Sans" }}
         mt={2}
-        color="white"
+        color={"primary"}
         fontWeight={"bolder"}
         align='center'
       >
@@ -103,54 +94,22 @@ export const WhosThatPokemon = () => {
         alt={currentPokemon.name}
         style={{
           height: "180px",
-          filter: `${revealAnswer ? "brightness(1)" : "brightness(0)"}`
+          filter: `${revealAnswer ? "brightness(1)" : "brightness(0)"}`,
         }}
 
-        className={`${revealAnswer ? "swipeOut" : "swipeIn"}`}
+        className={`${!revealAnswer && "imgAnimation"}`}
       />
 
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Button
-          variant="contained"
-          size='large'
-          sx={{ marginTop: "1rem", order: `${randOrder1}` }}
-          color={(!revealAnswer) ? "secondary" : "success"}
-          onClick={() => { nextQuiz(currentPokemon.name); animateRightAnswer = true; }}
-          className={`${animateRightAnswer ? "animateRightAnswer" : ""} ${!revealAnswer && "swipeIn"}`}
-        >
-          {currentPokemon.name}
-        </Button>
-        <Button
-          variant="contained"
-          size='large'
-          sx={{ marginTop: "1rem", order: `${randOrder2}` }}
-          color={(!revealAnswer) ? "secondary" : "error"}
-          onClick={() => { nextQuiz(ans1); animateAnswer1 = true; }}
-          className={
-            `${animateAnswer1 ? "animateWrongAnswer" : ""} ${!revealAnswer && "swipeIn"}`}
-        >
-          {ans1}
-        </Button>
-        <Button
-          variant="contained"
-          size='large'
-          sx={{ marginTop: "1rem", order: `${randOrder3}` }}
-          color={(!revealAnswer) ? "secondary" : "error"}
-          onClick={() => { nextQuiz(ans2); animateAnswer2 = true; }}
-          className={`${animateAnswer2 ? "animateWrongAnswer" : ""} ${!revealAnswer && "swipeIn"}`}
-        >
-          {ans2}
-        </Button>
-        <Button
-          variant="contained"
-          size='large'
-          sx={{ marginTop: "1rem", order: `${randOrder4}` }}
-          color={(!revealAnswer) ? "secondary" : "error"}
-          onClick={() => { nextQuiz(ans3); animateAnswer3 = true; }}
-          className={`${animateAnswer3 ? "animateWrongAnswer" : ""} ${!revealAnswer && "swipeIn"}`}
-        >
-          {ans3}
-        </Button>
+      <Box sx={{
+        display: "grid",
+        gridTemplateColumns: { sm: "1fr 1fr" },
+        padding: "2rem"
+      }}>
+        {answersArr.map((ans) => {
+          return (
+            <AnswerButton answer={ans.answer} key={`${ans.answer}${ans.order}`} order={ans.order} />
+          );
+        })}
       </Box>
 
     </>

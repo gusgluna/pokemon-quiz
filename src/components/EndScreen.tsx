@@ -1,5 +1,4 @@
 import React from 'react';
-import ScreenContainer from "./ScreenContainer";
 import { Button } from '@mui/material';
 
 import { usePokemonContext } from "../context/PokemonContext";
@@ -7,7 +6,7 @@ import { usePokemonContext } from "../context/PokemonContext";
 export const EndScreen = () => {
   const { score, setGameState, setLives, setScore, setGameMode } = usePokemonContext();
   return (
-    <ScreenContainer>
+    <React.Fragment>
       Game Over!
       Score: {score}
       <Button
@@ -27,6 +26,6 @@ export const EndScreen = () => {
       </Button>
 
 
-    </ScreenContainer>
+    </React.Fragment>
   );
 };

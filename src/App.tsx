@@ -1,36 +1,36 @@
-import axios from 'axios';
-import { useEffect } from 'react';
+import React from "react";
 import { usePokemonContext } from "./context/PokemonContext";
 import { MainMenu } from "./components/MainMenu";
 import { PlayingScreen } from "./components/PlayingScreen";
 import { EndScreen } from "./components/EndScreen";
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
+import theme from "./theme";
 import './App.css';
-import { Container, CssBaseline, Box, Button } from '@mui/material';
 
-const fetchData = async () => {
-  const { data } = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0");
-  console.log(data.results);
+
+const ContainerStyles: {} = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-evenly",
+  alignItems: "center",
+  height: "100vh"
 };
 
-
 function App() {
-  const { gameState, setGameState } = usePokemonContext();
+  const { gameState } = usePokemonContext();
 
   return (
-    <>
-      <Container>
+    <React.Fragment>
+      <ThemeProvider theme={theme}>
+
         <CssBaseline />
-        <Box sx={{
-          height: "100vh",
-          display: "grid",
-          placeContent: "center"
-        }}>
+        <Container sx={ContainerStyles}>
           {gameState === "menu" && <MainMenu />}
           {gameState === "playing" && <PlayingScreen />}
           {gameState === "finished" && <EndScreen />}
-        </Box>
-      </Container>
-    </>
+        </Container>
+      </ThemeProvider>
+    </React.Fragment>
   );
 }
 
