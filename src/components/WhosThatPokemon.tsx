@@ -93,7 +93,7 @@ export const WhosThatPokemon = () => {
         src={currentPokemon.sprite}
         alt={currentPokemon.name}
         style={{
-          height: "180px",
+          height: "160px",
           filter: `${revealAnswer ? "brightness(1)" : "brightness(0)"}`,
         }}
 
@@ -103,7 +103,7 @@ export const WhosThatPokemon = () => {
       <Box sx={{
         display: "grid",
         gridTemplateColumns: { sm: "1fr 1fr" },
-        padding: "2rem"
+        padding: "1rem"
       }}>
         {answersArr.map((ans) => {
           return (

@@ -11,14 +11,14 @@ import React from "react";
 import Pokeball from "../assets/pokeball.png";
 import { usePokemonContext } from '../context/PokemonContext';
 
+
+
 export const MainMenu = () => {
   const { setGameState, setGameMode, gameMode } = usePokemonContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGameMode((event.target as HTMLInputElement).value);
   };
-  console.log(gameMode);
-
 
   return (
     <React.Fragment>
@@ -51,6 +51,7 @@ export const MainMenu = () => {
           row
           sx={{ marginTop: "2rem" }}
           onChange={handleChange}
+          value={gameMode}
         >
           <FormControlLabel value="quick" control={<Radio color="primary" />} label="Quick" />
           <FormControlLabel value="advanced" control={<Radio color="primary" />} label="Advanced" />
@@ -65,7 +66,6 @@ export const MainMenu = () => {
       >
         Start
       </Button>
-
 
 
     </React.Fragment>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 import { usePokemonContext } from "../context/PokemonContext";
 
@@ -7,7 +7,9 @@ export const EndScreen = () => {
   const { score, setGameState, setLives, setScore, setGameMode } = usePokemonContext();
   return (
     <React.Fragment>
-      Game Over!
+      <Typography variant='h3'>
+        Game Over!
+      </Typography>
       Score: {score}
       <Button
         variant="contained"

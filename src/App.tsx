@@ -1,11 +1,15 @@
-import React from "react";
-import { usePokemonContext } from "./context/PokemonContext";
-import { MainMenu } from "./components/MainMenu";
-import { PlayingScreen } from "./components/PlayingScreen";
-import { EndScreen } from "./components/EndScreen";
-import { Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BottomNavigation, BottomNavigationAction, Container, CssBaseline, ThemeProvider } from '@mui/material';
+import QuizPage from "./pages/QuizPage";
+import LeaderBoard from "./pages/LeaderBoard";
 import theme from "./theme";
 import './App.css';
+import { Box } from '@mui/system';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import HomeIcon from '@mui/icons-material/Home';
+import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import NavigationBar from './components/NavigationBar';
 
 
 const ContainerStyles: {} = {
@@ -13,24 +17,24 @@ const ContainerStyles: {} = {
   flexDirection: "column",
   justifyContent: "space-evenly",
   alignItems: "center",
-  height: "100vh"
+  height: "90vh"
 };
 
 function App() {
-  const { gameState } = usePokemonContext();
-
   return (
-    <React.Fragment>
+    <BrowserRouter>
       <ThemeProvider theme={theme}>
-
         <CssBaseline />
         <Container sx={ContainerStyles}>
-          {gameState === "menu" && <MainMenu />}
-          {gameState === "playing" && <PlayingScreen />}
-          {gameState === "finished" && <EndScreen />}
+          <Routes>
+            <Route path="/" element={<QuizPage />} />
+            <Route path="/leaderboard" element={<LeaderBoard />} />
+          </Routes>
+
         </Container>
+        <NavigationBar />
       </ThemeProvider>
-    </React.Fragment>
+    </BrowserRouter>
   );
 }
 

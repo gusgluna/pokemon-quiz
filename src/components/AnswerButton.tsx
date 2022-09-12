@@ -32,6 +32,7 @@ const AnswerButton = ({ answer, order }: Props) => {
     if (answer.toLocaleLowerCase() == currentPokemon.name.toLocaleLowerCase()) {
       setScore(score + 1);
     }
+
     setTimeout(() => {
       setRevealAnswer(false);
     }, 900);
@@ -42,7 +43,7 @@ const AnswerButton = ({ answer, order }: Props) => {
   }
 
   let sx = {
-    margin: { xs: "0.5rem", sm: "1rem" },
+    margin: { xs: "0.4rem", sm: "1rem" },
     order: order
   };
 
