@@ -1,14 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import QuizPage from "./pages/QuizPage";
 import LeaderBoard from "./pages/LeaderBoard";
 import theme from "./theme";
 import './App.css';
-import { Box } from '@mui/system';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import HomeIcon from '@mui/icons-material/Home';
-import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import NavigationBar from './components/NavigationBar';
 
 
@@ -30,7 +25,6 @@ function App() {
             <Route path="/" element={<QuizPage />} />
             <Route path="/leaderboard" element={<LeaderBoard />} />
           </Routes>
-
         </Container>
         <NavigationBar />
       </ThemeProvider>

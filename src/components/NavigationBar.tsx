@@ -1,5 +1,5 @@
 import React from 'react';
-import { BottomNavigation, BottomNavigationAction, Container, CssBaseline, ThemeProvider, Box } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import HomeIcon from '@mui/icons-material/Home';
